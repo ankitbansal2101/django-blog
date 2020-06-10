@@ -1,0 +1,38 @@
+{%extends "base.html"%}
+{%block title%}contact{%endblock%}
+
+{%block body%}welcome to contact page
+
+<form action="/contact" method="POST"> {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="enter your name">
+    </div>
+    <div class="form-group">
+        <label for="email">email</label>
+        <input type="email" class="form-control" id="email" placeholder="enter your email" name="email">
+      </div>
+      <div class="form-group">
+        <label for="phone">phone</label>
+        <input type="text" class="form-control" id="phone" placeholder="enter your number" name="phone">
+      </div>
+    
+    <div class="form-group">
+      <label for="desc"> textarea</label>
+      <textarea class="form-control" id="desc" name="desc" rows="5"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+  
+
+
+
+
+
+
+
+{%endblock%}
+
+
+
+

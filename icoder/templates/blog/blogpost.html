@@ -1,0 +1,120 @@
+{%extends "base.html"%}
+{%block title%}post{%endblock%}
+{%block body%}
+<div class="container">
+    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">{{post.title}}</strong>
+          <h3 class="mb-0">{{post.subtitle}}</h3>
+          <div class="mb-1 text-muted">date</div>
+          <p class="card-text mb-auto">{{post.content}}</p>
+         
+        </div>
+    
+      </div>
+</div>
+
+<div class="container">
+  {%if user.is_authenticated%}
+  <h2>Comments ({{count}})</h2>
+  
+  <form action="/blog/postcomment" method="POST">{%csrf_token%}
+    <input type="text"  name="comment">
+    <input type="hidden" name="postSno" value="{{post.sno}}">
+    <input type="hidden" name="parentSno" value="">
+    
+    <input type="submit" value="submit">
+  </form>
+</div>
+{%else%} <h2>login to post comment </h2><hr>
+<h2>Comments ({{count}})</h2>
+{%endif%}
+
+  <!-- comments here -->
+    
+  <div class="container">
+  {%for comment in comments%}
+    <div class="row md-4">
+      <div class="col-md-3 col-lg-1 col-xl-1 my-2">
+         img here 
+      </div>
+      <div class="col-md-8 col-lg-10 col-xl-10 commentContainer">
+          <div class="my-2">
+              <b>{{comment.user}}</b> at {{comment.timestamp}} says<br>
+              <p>{{comment.comment}}</p>
+          </div>
+
+          <!-- replies -->
+
+          
+          <div class="replies">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#replybox{{comment.sno}}" aria-expanded="false" aria-controls="replybox{{comment.sno}}">
+              reply
+            </button>
+          
+            <div class="collapse" id="replybox{{comment.sno}}">
+              <div class="card card-body my-2">
+                <form action="/blog/postcomment" method="POST">{%csrf_token%}
+
+
+                  <div class="form-group">
+                    <input type="text"  name="comment">
+                    <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                    <input type="hidden" name="postSno" value="{{post.sno}}">
+                  </div>
+
+
+                  <input type="submit" value="submit">
+
+
+                </form>
+              </div>
+            </div>
+          </div>
+          
+
+
+
+      </div>
+    </div>
+    
+    {%endfor%}
+  
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}}
+
+
+
+
+
